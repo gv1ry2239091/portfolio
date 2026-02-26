@@ -1,0 +1,128 @@
+Схема:
+
+Browser
+ → Frontend (React)
+ → Backend API (NestJS)
+ → PostgreSQL
+
+5.2 Frontend
+
+React + TypeScript
+
+Ant Design
+
+SPA
+
+PWA-ready
+
+работа в современных браузерах
+
+5.3 Backend
+
+Node.js
+
+NestJS
+
+REST API
+
+JWT Auth
+
+RBAC
+
+5.4 База данных
+
+PostgreSQL
+
+реляционная модель
+
+обязательные связи
+
+транзакции
+
+миграции
+
+Основные таблицы:
+
+users
+
+roles
+
+employees
+
+ppe_items
+
+warehouses
+
+stock
+
+requests
+
+issuance
+
+write_offs
+
+audit_log
+
+5.5 Audit Log (обязательно)
+
+Логировать:
+
+создание
+
+изменение
+
+выдачу
+
+списание
+
+Поля:
+
+user_id
+
+entity
+
+action
+
+before
+
+after
+
+timestamp
+
+5.6 Безопасность
+
+HTTPS
+
+защита API
+
+валидация данных
+
+защита от SQL-инъекций
+
+резервное копирование БД
+
+5.7 Инфраструктура
+
+Docker
+
+Docker Compose
+
+отдельное окружение для заказчика
+
+автоматическое резервное копирование
+
+6. ТРЕБОВАНИЯ К UI/UX
+
+плотный интерфейс
+
+отсутствие пустых зон
+
+таблицы — основной элемент
+
+фильтры и поиск
+
+фиксированные заголовки таблиц
+
+читаемые шрифты
+
+

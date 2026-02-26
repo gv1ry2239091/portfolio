@@ -103,7 +103,7 @@ export const DATA = {
       school: "Astana Polytechnic",
       href: "https://apt.kz",
       degree: "Secondary Education — Software Engineering Focus",
-      logoUrl: "",
+      logoUrl: "/astana-polytechnic.svg",
       start: "2023",
       end: "Present",
     },
