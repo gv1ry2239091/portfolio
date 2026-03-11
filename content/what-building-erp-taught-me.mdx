@@ -1,0 +1,91 @@
+---
+title: "What Building an ERP From Scratch Actually Taught Me"
+publishedAt: "2026-02-28"
+updatedAt: "2026-02-28"
+author: "Yerzhan Kosbayev"
+summary: "Lessons from spending two years building an enterprise system when I barely knew what an ORM was."
+image: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&h=192&fit=crop"
+---
+
+# What Building an ERP From Scratch Actually Taught Me
+
+Two years ago I joined a small team to build an ERP system for an oil & gas company in Kazakhstan. I was 16. I knew React, kind of knew Node.js, and had never heard the word "Prisma" before.
+
+By the end of it, I'd mass-deleted a production table by accident, spent a full weekend fixing a bug that turned out to be a single typo in an env variable, and somehow shipped a system that real people use every day.
+
+Here's what I actually learned — not the polished LinkedIn version, but the real stuff.
+
+## 1. "Just use a spreadsheet" is valid feedback
+
+Our first demo was a disaster. We showed the client our beautiful dashboard with animated charts, filter panels, role-based sidebars — the whole thing.
+
+Their response: "This is cool, but I still can't see how many helmets are left in warehouse B."
+
+We'd spent three weeks on a dashboard nobody asked for. Meanwhile the core feature — inventory tracking — was half-baked because we thought it was "too simple" to prioritize.
+
+Lesson: the boring feature is usually the important one. If someone is currently doing it in Excel, that's your starting point, not your afterthought.
+
+## 2. Database schema is everything
+
+I used to think the database was just "where stuff gets saved." I'd throw columns into tables whenever I needed something new. Need a status? Add a column. Need to track who changed it? Another column. Need history? Uhh... another table? Maybe?
+
+After our schema turned into spaghetti around month four, we had to stop everything and redesign it. That week of refactoring saved us months of pain later.
+
+What I'd tell myself now:
+
+- Sketch your tables on paper before writing any code
+- Think about what queries you'll actually need to run
+- Relations matter more than you think — a wrong foreign key setup will haunt you at 2 AM
+- Migrations are not optional, they're a lifeline
+
+## 3. Nobody reads your clever code
+
+I wrote some really "smart" code early on. Deeply nested ternaries. Utility functions that handled six different cases with default parameters. A custom hook that did validation, API calls, and toast notifications all in one.
+
+My teammate couldn't understand any of it. I couldn't understand it two weeks later.
+
+Now I write dumb code on purpose. Obvious variable names. Early returns instead of nested ifs. Comments that explain *why*, not *what*. Separate functions that each do one thing.
+
+It's less satisfying to write but infinitely easier to maintain.
+
+## 4. The env file will betray you
+
+We had a bug where the app worked perfectly on my machine but crashed on the server. Classic. Spent an entire Saturday debugging it.
+
+The problem? I had `DATABASE_URL` in my `.env.local`. The server was reading `.env`. They had different connection strings. One pointed to the dev database, the other pointed to... nothing, because I'd pasted the URL wrong and there was an extra space at the end.
+
+An extra space. Eight hours of my life.
+
+Now I have a checklist:
+- Double-check every env variable on deploy
+- Use `.env.example` with placeholder values
+- Never copy-paste URLs without trimming whitespace
+- Log the connection status on startup
+
+## 5. Users will do things you never imagined
+
+We built a form for issuing equipment to employees. Clean UI, validation, dropdown menus, the works.
+
+First day in production, someone tried to issue 99,999 helmets to one person. The system accepted it because we only validated that the number was positive. The inventory went negative. Reports broke. Fun times.
+
+Another user found that if they clicked the submit button fast enough, the request went through twice. We didn't have any debounce or idempotency checks.
+
+You can't predict everything, but you can assume people will click things twice, enter absurd numbers, and leave required fields blank despite the red asterisk.
+
+## 6. Shipping something ugly that works > perfecting something nobody uses
+
+Our first production release looked rough. The tables weren't perfectly aligned, the loading states were basic spinners, and the mobile view was honestly broken.
+
+But it worked. The warehouse manager could track inventory. The safety engineer could see expiry dates. Reports exported to Excel.
+
+We polished it over the next few months, but getting it into people's hands early meant we fixed *real* problems instead of imaginary ones.
+
+## Looking back
+
+I'm not going to say "I wouldn't change anything." I'd change a lot. I'd plan the database first. I'd write tests earlier. I'd push back on scope creep instead of saying yes to every feature request.
+
+But building something real, for real users, with real consequences when it breaks — that taught me more than any tutorial or course ever could.
+
+If you're early in your career and you get a chance to work on something messy and real, take it. You'll learn fast, break things, and come out the other side as a much better developer.
+
+Just check your env files first.
